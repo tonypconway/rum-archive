@@ -850,7 +850,7 @@ Note that we intentionally do not include interpretations of the data here, as t
       ];
 
       let baselineFeaturesPerYear = {};
-      for( let year = 2017; year <= 2024; year++ ) {
+      for( let year = 2016; year <= 2024; year++ ) {
         let yearFeatures = [];
         // baseline dates are for the baseline_low_date (means low availability, but year is correct)
         for ( let web_feature of Object.values(web_features) ) {
@@ -881,7 +881,7 @@ Note that we intentionally do not include interpretations of the data here, as t
 
         let DEBUG_totalUnsupportedPercent = 0;
 
-        for( let year = 2017; year <= 2024; year++ ){
+        for( let year = 2016; year <= 2024; year++ ){
 
           if ( !resultsPerYear[""+year] ) {
             resultsPerYear[""+year] = 0;
@@ -1070,34 +1070,6 @@ Note that we intentionally do not include interpretations of the data here, as t
 
           let detailsContainer = document.getElementById("baseline_"+ baselineResult.clients[0] +"_details");
           detailsContainer.getElementsByTagName("h4")[0].textContent = "Details for Baseline " + year;
-
-          if ( parseInt(year) <= 2022 ) {
-            // at the time of writing, we only have full features for 2023 and 2024
-            // as such, for anything 2022 and below, we still want to show the percentages, but not the individual feature lists, because they're incomplete
-
-            let detailsContent = `
-              <p>
-                For the users represented in the RUM Archive, <b>${percentage}%</b> of ${baselineResult.clients[0]} visitors used a 
-                Tracked browser <img class="usageDisclaimerIcon" onclick="showUsageDisclaimer('${baselineResult.clients[0]}')" src="/assets/question_mark.png" /> 
-                version released after January 1st ${parseInt(year) + 1}, meaning they should support all features in Baseline ${year} and below.
-                Consider this the lower bound. 
-              </p>
-              <p>
-                For the time being, we do not have a full list of features for Baseline ${year}. 
-                This is because we are dependent on the <a href="https://github.com/web-platform-dx/web-features">Web Features Project</a>, 
-                which is still hard at work backfilling the details for years prior to 2023.
-              </p>
-              <p>
-                For now, select 2023 or 2024 for more in-depth info on which features are included in those Baselines. 
-                Check back here later for more details for earlier years as they become available. 
-              </p>
-            `;
-
-            let textContainer = detailsContainer.getElementsByTagName("div")[0];
-            textContainer.innerHTML = detailsContent;
-
-            return;
-          }
 
           let detailsContent = `If you target the following Web features for Baseline ${year}, <b>` + percentage + `%</b> of `+ baselineResult.clients[0] +` users in the RUM Archive for the Tracked browsers <img class="usageDisclaimerIcon" onclick="showUsageDisclaimer('${baselineResult.clients[0]}')" src="/assets/question_mark.png" /> would benefit:<br /><br />`;
 
